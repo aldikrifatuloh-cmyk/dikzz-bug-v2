@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIKZZ BUG V2</title>
+    <style>
+        :root {
+            --primary: #00ff41; /* Green Matrix */
+            --bg: #0a0a0a;
+            --card: #161616;
+        }
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg);
+            color: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            background-color: var(--card);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            width: 320px;
+            text-align: center;
+        }
+        h1 { font-size: 1.5rem; margin-bottom: 20px; text-shadow: 2px 2px #000; }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #000;
+            border: 1px solid #333;
+            color: var(--primary);
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover { background: #00cc33; }
+        .hidden { display: none; }
+        #status {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #fff;
+            background: rgba(0, 255, 65, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="login-page" class="container">
+    <h1>DIKZZ BUG V2<br>LOGIN</h1>
+    <input type="text" id="user" placeholder="Username">
+    <input type="password" id="pass" placeholder="Password">
+    <button onclick="cekLogin()">LOG IN</button>
+</div>
+
+<div id="main-page" class="container hidden">
+    <h1>DIKZZ BUG V2</h1>
+    <p style="font-size: 0.8rem; color: #888;">Authenticated as Admin</p>
+    
+    <div style="text-align: left; margin-top: 20px;">
+        <label>Target Number:</label>
+        <input type="number" id="targetNo" placeholder="628xxx">
+        
+        <label>Select Payload:</label>
+        <select id="bugType">
+            <option value="Forclose V2">Forclose V2</option>
+            <option value="Delay invisible">Delay invisible</option>
+            <option value="Crash ui">Crash ui</option>
+            <option value="Crash ios">Crash ios</option>
+            <option value="Crash android">Crash android</option>
+        </select>
+    </div>
+
+    <button onclick="executeBug()">EXECUTE BUG</button>
+    <div id="status"></div>
+</div>
+
+<script>
+    function cekLogin() {
+        const u = document.getElementById('user').value;
+        const p = document.getElementById('pass').value;
+
+        // Username: dikzz | Password: dikzz ori
+        if (u === "dikzz" && p === "dikzz ori") {
+            document.getElementById('login-page').classList.add('hidden');
+            document.getElementById('main-page').classList.remove('hidden');
+        } else {
+            alert("Akses Ditolak! Username atau Password salah.");
+        }
+    }
+
+    function executeBug() {
+        const target = document.getElementById('targetNo').value;
+        const type = document.getElementById('bugType').value;
+        const status = document.getElementById('status');
+
+        if (!target) {
+            alert("Masukkan nomor target!");
+            return;
+        }
+
+        status.style.display = "block";
+        status.innerHTML = "Processing Payload...";
+        
+        setTimeout(() => {
+            status.innerHTML = `BUG SUKSES TERKIRIM<br><small>Target: ${target}<br>Type: ${type}</small>`;
+            status.style.color = "#00ff41";
+        }, 2000);
+    }
+</script>
+
+</body>
+</html>
